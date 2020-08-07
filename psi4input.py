@@ -80,7 +80,7 @@ def mol2dft(x, flag, thread=4, mem=4, input_name="input.py", output_name="output
             "psi4.set_memory('{}GB')".format(mem),
             "psi4.set_output_file('{}')".format(str(output_name)),
             "\n{} = psi4.geometry('''".format(gname),
-            "{} {}".format(int(charge), int(spin)),            
+            "{} {}".format(int(charge), int(2*spin+1)),            
             XYZ,
             "''')\n",
             "psi4.{}('{}/{}')".format(method, functional, basis)]
