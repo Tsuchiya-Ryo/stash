@@ -25,11 +25,12 @@ while capture.isOpened():
     # Capture frames from the camera
     count += 1
     ret, frame = capture.read()
-    if count % 10 == 0:
+    if count % 5 == 0:
         
         # Get hand data from the rectangle sub window
         cv2.rectangle(frame, (100, 100), (600, 400), (0, 255, 0), 0)
         crop_image = frame[100:400, 100:600]
+        # cv2.imwrite("original.jpg", crop_image)
         cv2.rectangle(crop_image, (80,70),(400,240), (0,255,0), 0)
 
         # Apply Gaussian blur
@@ -73,9 +74,9 @@ while capture.isOpened():
             # Find convex hull
             # calc convex area
 
-            # hull = cv2.convexHull(contour, clockwise=True, returnPoints=True)
-            # pts = [x[0].tolist() for x in hull]
-            # convexarea = calcpoly(pts)
+            hull = cv2.convexHull(contour, clockwise=True, returnPoints=True)
+            pts = [x[0].tolist() for x in hull]
+            convexarea = calcpoly(pts)
 
             moments = cv2.moments(contour)
             if moments["m00"] != 0:
@@ -86,7 +87,7 @@ while capture.isOpened():
             font = cv2.FONT_HERSHEY_SIMPLEX
             cv2.circle(crop_image,(cx,cy),7,[100,0,255],2)
 
-            if count % 2 == 0:
+            if count % 5 == 0:
 
                 if cx > 400 and center==True:
                     center=False
@@ -145,7 +146,8 @@ while capture.isOpened():
 
                     cv2.line(crop_image, start, end, [0, 255, 0], 2)
                 
-                ratio = (convexarea-trianglesarea)/convexarea
+                # ratio = (convexarea-trianglesarea)/convexarea
+                # ratio = cv2.contourArea(contour)/convexarea
      
                 # Press SPACE if condition is match
                 if count_defects >= 4:
