@@ -6,6 +6,8 @@ set smartindent
 set noswapfile
 set hlsearch
 set belloff=all
+nnoremap d "_d
+vnoremap d "_d
 colorscheme slate
 let &t_ti.="\e[5 q"
 hi MatchParen cterm=none ctermfg=250 ctermbg=55
